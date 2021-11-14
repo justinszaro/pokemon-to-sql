@@ -22,6 +22,8 @@ class sqlConnector():
 
     def query(self, query):
         self.cursor.execute(query)
+
+    def fetchOne(self):
         return self.cursor.fetchall()
 
     def insert_into_table(self, name, values):
@@ -29,3 +31,5 @@ class sqlConnector():
 
     def commit(self):
         self.conn.commit()
+        self.conn.close()
+        self.cursor.close()
