@@ -12,7 +12,8 @@ def quotes(string):
 
 def insertIntoAbilityTable(connector, abilityDict, abilityID, ability_1, ability_2, ability_hidden):
     if abilityDict.get((ability_1 + ability_2 + ability_hidden), None) is None:
-        connector.insert_into_table('Abilities', [str(abilityID), quotes(ability_1), quotes(ability_2), quotes(ability_hidden)])
+        connector.insert_into_table('Abilities',
+                                    [str(abilityID), quotes(ability_1), quotes(ability_2), quotes(ability_hidden)])
         abilityDict[ability_1 + ability_2 + ability_hidden] = abilityID
         abilityID += 1
     return abilityDict, abilityID
@@ -26,9 +27,11 @@ def insertIntoSpeciesTable(connector, speciesDict, speciesID, species):
     return speciesDict, speciesID
 
 
-def insertIntoStatsTable(connector, statsDict, statsID, total_points, hp, attack, defense, sp_attack, sp_defense, speed):
+def insertIntoStatsTable(connector, statsDict, statsID, total_points, hp, attack, defense, sp_attack, sp_defense,
+                         speed):
     if statsDict.get((total_points + hp + attack + defense + sp_attack + sp_defense + speed), None) is None:
-        connector.insert_into_table('Stats', [str(statsID), total_points, hp, attack, defense, sp_attack, sp_defense, speed])
+        connector.insert_into_table('Stats',
+                                    [str(statsID), total_points, hp, attack, defense, sp_attack, sp_defense, speed])
         statsDict[total_points + hp + attack + defense + sp_attack + sp_defense + speed] = statsID
         statsID += 1
     return statsDict, statsID
@@ -49,8 +52,11 @@ def insertIntoGenerationTable(connector, generationID, generation, regionName):
     return generationID
 
 
-def insertIntoCharacteristicsTable(connector, name, pokedex_number, generation, status, speciesID, typingID, height_m, weight_kg, abilityID, statsID):
-    connector.insert_into_table('Characteristics', [quotes(name), pokedex_number, generation, quotes(status), str(speciesID), str(typingID), height_m, weight_kg, str(abilityID), str(statsID)])
+def insertIntoCharacteristicsTable(connector, name, pokedex_number, generation, status, speciesID, typingID, height_m,
+                                   weight_kg, abilityID, statsID):
+    connector.insert_into_table('Characteristics',
+                                [quotes(name), pokedex_number, generation, quotes(status), str(speciesID),
+                                 str(typingID), height_m, weight_kg, str(abilityID), str(statsID)])
 
 
 def insertDataIntoTables(connector, filename):
@@ -71,26 +77,27 @@ def insertDataIntoTables(connector, filename):
                                                       sp_attack, sp_defense, speed)
             typingDict, typingID = insertIntoTypingTable(connector, typingDict, typingID, type_1, type_2)
             generationID = insertIntoGenerationTable(connector, generationID, generation, region_name.strip())
-            insertIntoCharacteristicsTable(connector, name, pokedex_number, generation, status, speciesDict[species], typingDict[type_1 + type_2], quotes(height_m), quotes(weight_kg), abilityDict[ability_1 + ability_2 + ability_hidden], statsDict[total_points + hp + attack + defense + sp_attack + sp_defense + speed])
+            insertIntoCharacteristicsTable(connector, name, pokedex_number, generation, status, speciesDict[species],
+                                           typingDict[type_1 + type_2], quotes(height_m), quotes(weight_kg),
+                                           abilityDict[ability_1 + ability_2 + ability_hidden], statsDict[
+                                               total_points + hp + attack + defense + sp_attack + sp_defense + speed])
+
+
+def getTableAttributes(filename):
+    characteristics = []
+    with open(filename) as in_file:
+        for line in in_file:
+            characteristics.append(line.strip().split(','))
+    return characteristics
 
 
 def main():
     connector = sqlConnector()
     connector.createDatabase('pokemon')
 
-    characteristics_table = ['name VARCHAR(40)', 'pokedex_number INT', 'generation INT',
-                             'status VARCHAR(20)', 'species_ID INT', 'typing_ID INT', 'height_m VARCHAR(20)',
-                             'weight_m VARCHAR(20)', 'ability_ID INT', 'stats_ID INT']
-    generation_table = ['generation INT', 'region_name VARCHAR(20)']
-    species_table = ['species_ID INT', 'species VARCHAR(255)']
-    typing_table = ['typing_ID INT', 'type_primary CHAR(10)', 'type_secondary CHAR(10)']
-    ability_table = ['ability_ID INT', 'ability_1 CHAR(20)', 'ability_2 CHAR(20)',
-                     'ability_hidden CHAR(20)']
-    stats_table = ['stats_ID INT', 'total_points FLOAT', 'hp FLOAT', 'attack FLOAT',
-                   'defense FLOAT', 'sp_attack FLOAT', 'sp_defense FLOAT', 'speed FLOAT']
     table_names = ['Characteristics', 'Generation', 'Species', 'Typing', 'Abilities', 'Stats']
-    table_attributes = [characteristics_table, generation_table, species_table, typing_table, ability_table,
-                        stats_table]
+    table_attributes = getTableAttributes('dataTypes.txt')
+
     makeTables(connector, table_names, table_attributes)
     insertDataIntoTables(connector, 'pokedex-slim.csv')
 
