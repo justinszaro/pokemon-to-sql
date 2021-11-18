@@ -21,7 +21,7 @@ class sqlConnector():
         self.cursor.execute('Use {}'.format(name))
 
     def create_table(self, name, attributes):
-        self.cursor.execute("Create table {} ({})".format(name, ','.join(attributes)))
+        self.cursor.execute("Create table {} ({})".format(name, ', '.join(attributes)))
 
     def query(self, query):
         self.cursor.execute(query)
@@ -33,7 +33,9 @@ class sqlConnector():
         return self.cursor.fetchall()
 
     def insert_into_table(self, name, values):
-        self.cursor.execute("Insert into {} VALUES ({})".format(name, ','.join(values)))
+        if 'None' in values:
+            values[values.index('None')] = "'None'"
+        self.cursor.execute("Insert into {} VALUES ({})".format(name, ', '.join(values)))
 
     def commit(self):
         self.conn.commit()

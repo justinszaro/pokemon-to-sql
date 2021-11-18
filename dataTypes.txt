@@ -1,0 +1,6 @@
+name VARCHAR(40),pokedex_number INT,generation INT,status VARCHAR(20),species_ID INT,typing_ID INT,height_m VARCHAR(20),weight_m VARCHAR(20),ability_ID INT,stats_ID INT
+generation INT,region_name VARCHAR(20)
+species_ID INT,species VARCHAR(255)
+typing_ID INT,type_primary CHAR(10),type_secondary CHAR(10)
+ability_ID INT,ability_1 CHAR(20),ability_2 CHAR(20),ability_hidden CHAR(20)
+stats_ID INT,total_points FLOAT,hp FLOAT,attack FLOAT,defense FLOAT,sp_attack FLOAT,sp_defense FLOAT,speed FLOAT
