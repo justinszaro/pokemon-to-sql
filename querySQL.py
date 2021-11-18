@@ -23,15 +23,16 @@ def getResult(connector, outfile, queries, question):
     result = connector.fetchOne()
     while result is not None:
         print(*(result[i] for i in range(len(result))), sep=",", file=outfile)
-        result = connector.fetchOne
+        result = connector.fetchOne()
     print(file=outfile)
 
 
 def main():
     queries = createQueries()
     connector = sqlConnector()
-    letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l']
-    with open('results.txt') as outfile:
+    connector.useDatabase('pokemon')
+    letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
+    with open('results.txt', 'w') as outfile:
         for letter in letters:
             getResult(connector, outfile, queries, letter)
     connector.commit()

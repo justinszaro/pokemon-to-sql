@@ -53,10 +53,10 @@ def insertIntoGenerationTable(connector, generationID, generation, regionName):
 
 
 def insertIntoCharacteristicsTable(connector, name, pokedex_number, generation, status, speciesID, typingID, height_m,
-                                   weight_kg, abilityID, statsID):
+                                   weight_kg, abilityID, statsID, catch_rate, percentage_male):
     connector.insert_into_table('Characteristics',
                                 [quotes(name), pokedex_number, generation, quotes(status), str(speciesID),
-                                 str(typingID), height_m, weight_kg, str(abilityID), str(statsID)])
+                                 str(typingID), height_m, weight_kg, str(abilityID), str(statsID), quotes(catch_rate), quotes(percentage_male)])
 
 
 def insertDataIntoTables(connector, filename):
@@ -80,7 +80,7 @@ def insertDataIntoTables(connector, filename):
             insertIntoCharacteristicsTable(connector, name, pokedex_number, generation, status, speciesDict[species],
                                            typingDict[type_1 + type_2], quotes(height_m), quotes(weight_kg),
                                            abilityDict[ability_1 + ability_2 + ability_hidden], statsDict[
-                                               total_points + hp + attack + defense + sp_attack + sp_defense + speed])
+                                               total_points + hp + attack + defense + sp_attack + sp_defense + speed], catch_rate, percentage_male)
 
 
 def getTableAttributes(filename):

@@ -1,0 +1,462 @@
+a. How many Pokemon were added in each generation? List the region name as well.
+select region_name, count(name) from Characteristics natural join Generation group by region_name;
+Kanto,192
+Johto,107
+Hoenn,165
+Sinnoh,121
+Unova,171
+Kalos,85
+Alola,99
+Galar,88
+
+b. How many unique pokemon are there? This does not include alternate forms.
+select count(distinct pokedex_number) from Characteristics;
+890
+
+c. Which pokemon have alternate forms?
+select name from Characteristics where name not like "% %" and pokedex_number in (select pokedex_number from Characteristics where name like "% %");
+Venusaur
+Charizard
+Blastoise
+Beedrill
+Pidgeot
+Rattata
+Raticate
+Pikachu
+Raichu
+Sandshrew
+Sandslash
+Vulpix
+Ninetales
+Diglett
+Dugtrio
+Meowth
+Persian
+Alakazam
+Geodude
+Graveler
+Golem
+Ponyta
+Rapidash
+Slowbro
+Farfetch'd
+Grimer
+Muk
+Gengar
+Exeggutor
+Marowak
+Weezing
+Kangaskhan
+Pinsir
+Gyarados
+Eevee
+Aerodactyl
+Mewtwo
+Ampharos
+Steelix
+Scizor
+Heracross
+Corsola
+Houndoom
+Tyranitar
+Sceptile
+Blaziken
+Swampert
+Zigzagoon
+Linoone
+Gardevoir
+Sableye
+Mawile
+Aggron
+Medicham
+Manectric
+Sharpedo
+Camerupt
+Altaria
+Castform
+Banette
+Absol
+Glalie
+Salamence
+Metagross
+Latias
+Latios
+Kyogre
+Groudon
+Rayquaza
+Lopunny
+Garchomp
+Lucario
+Abomasnow
+Gallade
+Rotom
+Audino
+Darumaka
+Yamask
+Stunfisk
+Kyurem
+Diancie
+Rockruff
+Necrozma
+Eternatus
+
+d. Which pokemon has the highest attack stat?
+select name, Max(attack) from Characteristics natural join Stats group by name order by Max(attack) desc limit 1;
+Mega Mewtwo X,190.0
+
+e. List the distinct Pokemon typings.
+select distinct type_primary from Typing;
+Grass
+Fire
+Water
+Bug
+Normal
+Dark
+Poison
+Electric
+Ground
+Ice
+Fairy
+Steel
+Fighting
+Psychic
+Rock
+Ghost
+Dragon
+Flying
+
+f. List all the primary types and the amount of pokemon that have that type.
+select type_primary, count(name) from Typing natural join Characteristics group by type_primary;
+Grass,91
+Fire,65
+Water,134
+Bug,81
+Normal,115
+Dark,44
+Poison,39
+Electric,61
+Ground,41
+Ice,36
+Fairy,22
+Steel,36
+Fighting,38
+Psychic,76
+Rock,60
+Ghost,41
+Dragon,40
+Flying,8
+
+g. List the only pokemon that weighs nothing.
+select name from characteristics where weight_kg = 0;
+Eternatus Eternamax
+
+h. List all of the pokemon that do not have a gender or the value is missing.
+select name from characteristics where percentage_male = '0.0' or percentage_male = 'None';
+Nidoran♀
+Nidorina
+Nidoqueen
+Galarian Meowth
+Galarian Ponyta
+Galarian Rapidash
+Magnemite
+Magneton
+Galarian Farfetch'd
+Voltorb
+Electrode
+Galarian Weezing
+Chansey
+Kangaskhan
+Mega Kangaskhan
+Staryu
+Starmie
+Galarian Mr. Mime
+Jynx
+Ditto
+Porygon
+Articuno
+Zapdos
+Moltres
+Mewtwo
+Mega Mewtwo X
+Mega Mewtwo Y
+Mew
+Unown
+Galarian Corsola
+Porygon2
+Smoochum
+Miltank
+Blissey
+Raikou
+Entei
+Suicune
+Lugia
+Ho-oh
+Celebi
+Galarian Zigzagoon
+Galarian Linoone
+Shedinja
+Illumise
+Lunatone
+Solrock
+Baltoy
+Claydol
+Beldum
+Metang
+Metagross
+Mega Metagross
+Regirock
+Regice
+Registeel
+Latias
+Mega Latias
+Kyogre
+Primal Kyogre
+Groudon
+Primal Groudon
+Rayquaza
+Mega Rayquaza
+Jirachi
+Deoxys Normal Forme
+Deoxys Attack Forme
+Deoxys Defense Forme
+Deoxys Speed Forme
+Wormadam Plant Cloak
+Wormadam Sandy Cloak
+Wormadam Trash Cloak
+Vespiquen
+Bronzor
+Bronzong
+Happiny
+Magnezone
+Porygon-Z
+Froslass
+Rotom
+Heat Rotom
+Wash Rotom
+Frost Rotom
+Fan Rotom
+Mow Rotom
+Uxie
+Mesprit
+Azelf
+Dialga
+Palkia
+Regigigas
+Giratina Altered Forme
+Giratina Origin Forme
+Cresselia
+Phione
+Manaphy
+Darkrai
+Shaymin Land Forme
+Shaymin Sky Forme
+Arceus
+Victini
+Petilil
+Lilligant
+Galarian Darumaka
+Darmanitan Galarian Standard Mode
+Darmanitan Galarian Zen Mode
+Galarian Yamask
+Klink
+Klang
+Klinklang
+Cryogonal
+Galarian Stunfisk
+Golett
+Golurk
+Vullaby
+Mandibuzz
+Cobalion
+Terrakion
+Virizion
+Reshiram
+Zekrom
+Kyurem
+Black Kyurem
+White Kyurem
+Keldeo Ordinary Forme
+Keldeo Resolute Forme
+Meloetta Aria Forme
+Meloetta Pirouette Forme
+Genesect
+Flabébé
+Floette
+Florges
+Carbink
+Xerneas
+Yveltal
+Zygarde 50% Forme
+Zygarde 10% Forme
+Zygarde Complete Forme
+Diancie
+Mega Diancie
+Hoopa Hoopa Confined
+Hoopa Hoopa Unbound
+Volcanion
+Salazzle
+Bounsweet
+Steenee
+Tsareena
+Type: Null
+Silvally
+Minior Meteor Form
+Minior Core Form
+Dhelmise
+Tapu Koko
+Tapu Lele
+Tapu Bulu
+Tapu Fini
+Cosmog
+Cosmoem
+Solgaleo
+Lunala
+Nihilego
+Buzzwole
+Pheromosa
+Xurkitree
+Celesteela
+Kartana
+Guzzlord
+Necrozma
+Dusk Mane Necrozma
+Dawn Wings Necrozma
+Ultra Necrozma
+Magearna
+Marshadow
+Poipole
+Naganadel
+Stakataka
+Blacephalon
+Zeraora
+Meltan
+Melmetal
+Grookey
+Thwackey
+Rillaboom
+Scorbunny
+Raboot
+Cinderace
+Sobble
+Drizzile
+Inteleon
+Skwovet
+Greedent
+Rookidee
+Corvisquire
+Corviknight
+Blipbug
+Dottler
+Orbeetle
+Nickit
+Thievul
+Gossifleur
+Eldegoss
+Wooloo
+Dubwool
+Chewtle
+Drednaw
+Yamper
+Boltund
+Rolycoly
+Carkol
+Coalossal
+Applin
+Flapple
+Appletun
+Silicobra
+Sandaconda
+Cramorant
+Arrokuda
+Barraskewda
+Toxel
+Toxtricity Low Key Form
+Toxtricity Amped Form
+Sizzlipede
+Centiskorch
+Clobbopus
+Grapploct
+Sinistea
+Polteageist
+Hatenna
+Hattrem
+Hatterene
+Impidimp
+Morgrem
+Grimmsnarl
+Obstagoon
+Perrserker
+Cursola
+Sirfetch'd
+Mr. Rime
+Runerigus
+Milcery
+Alcremie
+Falinks
+Pincurchin
+Snom
+Frosmoth
+Stonjourner
+Eiscue Ice Face
+Eiscue Noice Face
+Indeedee Male
+Indeedee Female
+Morpeko Full Belly Mode
+Morpeko Hangry Mode
+Cufant
+Copperajah
+Dracozolt
+Arctozolt
+Dracovish
+Arctovish
+Duraludon
+Dreepy
+Drakloak
+Dragapult
+Zacian Crowned Sword
+Zacian Hero of Many Battles
+Zamazenta Crowned Shield
+Zamazenta Hero of Many Battles
+Eternatus
+Eternatus Eternamax
+
+i. List all of the pokemon that have the ability intimidate.
+select name from Characteristics natural join Abilities where ability_1 = 'Intimidate' or ability_2 = 'Intimidate' or ability_hidden = "Intimidate";
+Ekans
+Arbok
+Growlithe
+Arcanine
+Tauros
+Gyarados
+Snubbull
+Granbull
+Qwilfish
+Stantler
+Hitmontop
+Mightyena
+Masquerain
+Mawile
+Mega Manectric
+Salamence
+Staravia
+Staraptor
+Shinx
+Luxio
+Luxray
+Herdier
+Stoutland
+Sandile
+Krokorok
+Krookodile
+Scraggy
+Scrafty
+Landorus Therian Forme
+Litten
+Torracat
+Incineroar
+
+j. List all of the pokemon that are the species ‘The Shadow Pokemon’.
+select name from Characteristics natural join Species where species = 'Shadow Pokemon';
+Gengar
+Mega Gengar
+
