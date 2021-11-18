@@ -17,6 +17,9 @@ class sqlConnector():
         self.cursor.execute("Create database {}".format(name))
         self.cursor.execute("Use {}".format(name))
 
+    def useDatabase(self, name):
+        self.cursor.execute('Use {}'.format(name))
+
     def create_table(self, name, attributes):
         self.cursor.execute("Create table {} ({})".format(name, ','.join(attributes)))
 
@@ -24,6 +27,9 @@ class sqlConnector():
         self.cursor.execute(query)
 
     def fetchOne(self):
+        return self.cursor.fetchone()
+
+    def fetchAll(self):
         return self.cursor.fetchall()
 
     def insert_into_table(self, name, values):
