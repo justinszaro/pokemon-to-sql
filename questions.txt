@@ -1,0 +1,10 @@
+a,How many Pokemon were added in each generation? List the region name as well.
+b,How many unique pokemon are there? This does not include alternate forms.
+c,Which pokemon have alternate forms?
+d,Which pokemon has the highest attack stat?
+e,List the distinct Pokemon typings.
+f,List all the primary types and the amount of pokemon that have that type.
+g,List the only pokemon that weighs nothing.
+h,List all of the pokemon that do not have a gender or the value is missing.
+i,List all of the pokemon that have the ability intimidate.
+j,List all of the pokemon that are the species ‘The Shadow Pokemon’.
