@@ -3,6 +3,14 @@ from dotenv import load_dotenv
 import os
 
 
+def quotes(lst):
+    for i in range(len(lst)):
+        lst[i] = str(lst[i])
+        if not isinstance(lst[i], int) and not isinstance(lst[i], float) and lst[i] != 'NULL':
+            lst[i] = '"' + lst[i] + '"'
+    return lst
+
+
 class sqlConnector():
 
     def __init__(self):
@@ -33,9 +41,7 @@ class sqlConnector():
         return self.cursor.fetchall()
 
     def insert_into_table(self, name, values):
-        if 'None' in values:
-            values[values.index('None')] = "'None'"
-        self.cursor.execute("Insert into {} VALUES ({})".format(name, ', '.join(values)))
+        self.cursor.execute("Insert into {} VALUES ({})".format(name, ', '.join(quotes(values))))
 
     def commit(self):
         self.conn.commit()
