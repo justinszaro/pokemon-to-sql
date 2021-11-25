@@ -1,4 +1,4 @@
-name VARCHAR(40),pokedex_number INT,generation INT,status VARCHAR(20),species_ID INT,typing_ID INT,height_m VARCHAR(20),weight_kg VARCHAR(20),ability_ID INT,stats_ID INT,catch_rate varchar(20),percentage_male varchar(20)
+name VARCHAR(40),pokedex_number INT,generation INT,status VARCHAR(20),species_ID INT,typing_ID INT,height_m FLOAT,weight_kg FLOAT,ability_ID INT,stats_ID INT,catch_rate FLOAT,percentage_male FLOAT
 generation INT,region_name VARCHAR(20)
 species_ID INT,species VARCHAR(255)
 typing_ID INT,type_primary CHAR(10),type_secondary CHAR(10)
